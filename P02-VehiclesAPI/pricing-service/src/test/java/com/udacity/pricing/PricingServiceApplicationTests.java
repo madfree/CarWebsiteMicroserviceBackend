@@ -40,16 +40,16 @@ public class PricingServiceApplicationTests {
 	public void contextLoads() {
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void getAllPrices() throws Exception {
 		mvc.perform(
-						get(new URI("http://localhost:8082/prices"))
-								.contentType(MediaType.APPLICATION_JSON)
-								.accept(MediaType.APPLICATION_JSON))
+				get(new URI("http://localhost:8082/prices"))
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void getPrice() {
 		ResponseEntity<Price> response =
 				this.restTemplate.getForEntity("http://localhost:" + port + "/prices/1", Price.class);
