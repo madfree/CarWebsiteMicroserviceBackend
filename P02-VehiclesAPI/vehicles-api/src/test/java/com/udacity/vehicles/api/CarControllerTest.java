@@ -125,6 +125,49 @@ public class CarControllerTest {
     }
 
     /**
+     * Tests for successful update of an existing car in the system
+     *
+     * @throws Exception when car update fails in the system
+     */
+    @Test
+    public void updateCar() throws Exception {
+        Car car = getUpdatedCar();
+
+        mvc.perform(
+                put(new URI("/cars/1"))
+                        .content(json.write(car).getJson())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+    }
+
+
+    /**
+     * Creates an example updated Car object for use in testing.
+     *
+     * @return an example Car object
+     */
+    private Car getUpdatedCar() {
+        Car car = new Car();
+        car.setLocation(new Location(40.730610, -73.935242));
+        Details details = new Details();
+        Manufacturer manufacturer = new Manufacturer(101, "Chevrolet");
+        details.setManufacturer(manufacturer);
+        details.setModel("Impala");
+        details.setMileage(32280);
+        details.setExternalColor("white");
+        details.setBody("sedan");
+        details.setEngine("3.6L V6");
+        details.setFuelType("Gasoline");
+        details.setModelYear(2018);
+        details.setProductionYear(2019);
+        details.setNumberOfDoors(2);
+        car.setDetails(details);
+        car.setCondition(Condition.NEW);
+        return car;
+    }
+
+    /**
      * Creates an example Car object for use in testing.
      *
      * @return an example Car object
